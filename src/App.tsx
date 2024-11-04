@@ -33,19 +33,10 @@ const App: React.FC = () => {
       <h1 className="text-3xl font-bold text-center mb-8">
         Project Management
       </h1>
-      {selectedProject ? (
-        <TaskList
-          tasks={tasks}
-          onAddTask={handleAddTask}
-          onUpdateTask={handleUpdateTask}
-          onDeleteTask={handleDeleteTask}
-        />
-      ) : (
-        <Dashboard
-          projects={initialProjects}
-          onSelectProject={handleSelectProject}
-        />
-      )}
+      <Dashboard
+        projects={initialProjects}
+        onSelectProject={handleSelectProject}
+      />
     </div>
   );
 };

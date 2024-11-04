@@ -1,30 +1,91 @@
-// src/components/ProjectCard.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Project } from '../../types/index';
+import Modal from '../Modal/Modal';
+import TaskList from '../TaskList/TaskList';
+import { Task } from '../../types/index';
 
 interface ProjectCardProps {
   project: Project;
-  onClick: () => void;
+  onClickAssign: () => void;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({
+  project,
+  onClickAssign,
+}) => {
+  const [isAssignTaskOpen, setIsAssignTaskOpen] = useState(false);
+  const [isViewTaskOpen, setIsViewTaskOpen] = useState(false);
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  // Initialize tasks from project when component mounts
+  useEffect(() => {
+    setTasks(project.tasks);
+  }, [project.tasks]);
+
+  const handleAssignTaskOpen = () => setIsAssignTaskOpen(true);
+  const handleAssignTaskClose = () => setIsAssignTaskOpen(false);
+
+  const handleViewTaskOpen = () => setIsViewTaskOpen(true);
+  const handleViewTaskClose = () => setIsViewTaskOpen(false);
+
+  const handleAddTask = (newTask: Task) => {
+    setTasks((prevTasks) => [...prevTasks, newTask]);
+  };
+
+  const handleUpdateTask = (updatedTask: Task) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
+    );
+  };
+
+  const handleDeleteTask = (taskId: string) => {
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+  };
+
   return (
-    <div
-      onClick={onClick}
-      className="border rounded-lg p-4 shadow hover:bg-gray-100 cursor-pointer"
-    >
+    <div className="border rounded-lg p-4 shadow hover:bg-gray-100">
       <h3 className="text-lg font-semibold">{project.name}</h3>
       <p>Status: {project.status}</p>
       <p>Progress: {project.progress}%</p>
       <p>Due: {project.dueDate}</p>
       <div className="flex gap-4 justify-start mt-5">
-        <button className="bg-blue-500 hover:bg-blue-700 text-white p-2  rounded-lg">
+        <button
+          onClick={handleAssignTaskOpen}
+          className="bg-blue-500 hover:bg-blue-700 text-white p-2 rounded-lg"
+        >
           Assign New Task
         </button>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white p-2 rounded-lg">
-          View Assign Task
+        <button
+          onClick={handleViewTaskOpen}
+          className="bg-blue-500 hover:bg-blue-700 text-white p-2 rounded-lg"
+        >
+          View Assigned Tasks
         </button>
       </div>
+
+      {/* Assign New Task Modal */}
+      <Modal isOpen={isAssignTaskOpen} onClose={handleAssignTaskClose}>
+        <h2 className="text-xl font-bold mb-4">Assign New Task</h2>
+        <TaskList
+          tasks={tasks}
+          onAddTask={handleAddTask}
+          onUpdateTask={handleUpdateTask}
+          onDeleteTask={handleDeleteTask}
+        />
+      </Modal>
+
+      {/* View Assigned Tasks Modal */}
+      <Modal isOpen={isViewTaskOpen} onClose={handleViewTaskClose}>
+        <h2 className="text-xl font-bold mb-4">Assigned Tasks</h2>
+        <div>
+          {tasks.map((task) => (
+            <div key={task.id} className="border-b py-2">
+              <h3 className="font-semibold">{task.name}</h3>
+              <p className="text-gray-500">Status: {task.status}</p>
+            </div>
+          ))}
+        </div>
+      </Modal>
     </div>
   );
 };

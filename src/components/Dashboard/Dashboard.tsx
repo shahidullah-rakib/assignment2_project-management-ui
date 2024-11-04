@@ -15,7 +15,7 @@ const Dashboard: React.FC<DashboardProps> = ({ projects, onSelectProject }) => {
         <ProjectCard
           key={project.id}
           project={project}
-          onClick={() => onSelectProject(project)}
+          onClickAssign={() => onSelectProject(project)} // Changed to onClickAssign
         />
       ))}
     </div>
