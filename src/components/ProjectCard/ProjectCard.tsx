@@ -3,6 +3,7 @@ import { Project } from '../../types/index';
 import Modal from '../Modal/Modal';
 import TaskList from '../TaskList/TaskList';
 import { Task } from '../../types/index';
+import TaskViewModal from '../TaskViewModal/TaskViewModal';
 
 interface ProjectCardProps {
   project: Project;
@@ -42,6 +43,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
   };
 
+  const handleUpdateTaskStatus = (taskId: string, newStatus: string) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId ? { ...task, status: newStatus } : task
+      )
+    );
+  };
+
   return (
     <div className="border rounded-lg p-4 shadow hover:bg-gray-100">
       <h3 className="text-lg font-semibold">{project.name}</h3>
@@ -74,17 +83,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         />
       </Modal>
 
-      {/* View Assigned Tasks Modal */}
       <Modal isOpen={isViewTaskOpen} onClose={handleViewTaskClose}>
-        <h2 className="text-xl font-bold mb-4">Assigned Tasks</h2>
-        <div>
-          {tasks.map((task) => (
-            <div key={task.id} className="border-b py-2">
-              <h3 className="font-semibold">{task.name}</h3>
-              <p className="text-gray-500">Status: {task.status}</p>
-            </div>
-          ))}
-        </div>
+        <TaskViewModal
+          tasks={tasks}
+          isOpen={isViewTaskOpen}
+          onClose={handleViewTaskClose}
+          onUpdateTaskStatus={handleUpdateTaskStatus}
+        />
       </Modal>
     </div>
   );

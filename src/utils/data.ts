@@ -28,6 +28,15 @@ export const projects: Project[] = [
         dueDate: '2024-11-15',
         assignedUser: 'Bob',
       },
+      {
+        id: '3', // Changed id to 3 for uniqueness
+        name: 'Setup API Integration',
+        description: 'Integrate APIs for data fetching',
+        status: 'not-started',
+        priority: 'medium',
+        dueDate: '2024-11-20',
+        assignedUser: 'Charlie',
+      },
     ],
   },
   {
