@@ -54,11 +54,11 @@ const AssignTaskProgress: React.FC<AssignTaskProgressProps> = ({
         </p>
         {/* Display priority */}
         <p className="text-sm text-gray-700">
-          Priority: <span className="font-bold">{task.priority}</span>
+          Priority: <span className="">{task.priority}</span>
         </p>
         {/* Display assigned user */}
         <p className="text-sm text-gray-700">
-          Assigned to: <span className="font-bold">{task.assignedUser}</span>
+          Assigned to: <span className="">{task.assignedUser}</span>
         </p>
       </div>
     );
