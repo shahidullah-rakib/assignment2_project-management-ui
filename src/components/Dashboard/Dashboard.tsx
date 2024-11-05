@@ -1,4 +1,3 @@
-// src/components/Dashboard.tsx
 import React from 'react';
 import { Project } from '../../types/index';
 import ProjectCard from '../ProjectCard/ProjectCard';
@@ -15,7 +14,7 @@ const Dashboard: React.FC<DashboardProps> = ({ projects, onSelectProject }) => {
         <ProjectCard
           key={project.id}
           project={project}
-          onClickAssign={() => onSelectProject(project)} // Changed to onClickAssign
+          onClickAssign={() => onSelectProject(project)}
         />
       ))}
     </div>

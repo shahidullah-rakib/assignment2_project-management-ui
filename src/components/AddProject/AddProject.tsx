@@ -1,4 +1,3 @@
-// src/components/AddProject/AddProject.tsx
 import React, { useState } from 'react';
 import { Project } from '../../types/index';
 

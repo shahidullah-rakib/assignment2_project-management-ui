@@ -3,7 +3,6 @@ import { Project } from '../../types/index';
 import Modal from '../Modal/Modal';
 import TaskList from '../TaskList/TaskList';
 import { Task } from '../../types/index';
-// import TaskViewModal from '../TaskViewModal/TaskViewModal';
 import AssignTaskProgress from '../AssignTaskProgress/AssignTaskProgress';
 
 interface ProjectCardProps {
@@ -19,7 +18,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const [isViewTaskOpen, setIsViewTaskOpen] = useState(false);
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  // Initialize tasks from project when component mounts
   useEffect(() => {
     setTasks(project.tasks);
   }, [project.tasks]);
@@ -65,7 +63,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         </button>
       </div>
 
-      {/* Assign New Task Modal */}
       <Modal isOpen={isAssignTaskOpen} onClose={handleAssignTaskClose}>
         <h2 className="text-xl font-bold mb-4">Assign New Task</h2>
         <div className="h-full overflow-y-auto">

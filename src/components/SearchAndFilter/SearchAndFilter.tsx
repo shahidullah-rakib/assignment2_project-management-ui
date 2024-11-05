@@ -1,4 +1,3 @@
-// src/components/SearchAndFilter/SearchAndFilter.tsx
 import React, { useState } from 'react';
 
 interface SearchAndFilterProps {

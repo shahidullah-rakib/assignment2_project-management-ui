@@ -12,14 +12,12 @@ const AssignTaskProgress: React.FC<AssignTaskProgressProps> = ({
   tasks,
   onUpdateTaskStatus,
 }) => {
-  // Group tasks by their status
   const taskColumns = {
     'not-started': tasks.filter((task) => task.status === 'not-started'),
     'in-progress': tasks.filter((task) => task.status === 'in-progress'),
     complete: tasks.filter((task) => task.status === 'complete'),
   };
 
-  // Task Card component with drag functionality and color
   const TaskCard: React.FC<{ task: Task }> = ({ task }) => {
     const [{ isDragging }, drag] = useDrag({
       type: 'TASK',
@@ -29,7 +27,6 @@ const AssignTaskProgress: React.FC<AssignTaskProgressProps> = ({
       }),
     });
 
-    // Set color based on task status
     const cardColor =
       task.status === 'not-started'
         ? 'bg-red-100'
@@ -52,11 +49,9 @@ const AssignTaskProgress: React.FC<AssignTaskProgressProps> = ({
             ? task.dueDate.toLocaleDateString()
             : task.dueDate}
         </p>
-        {/* Display priority */}
         <p className="text-sm text-gray-700">
           Priority: <span className="">{task.priority}</span>
         </p>
-        {/* Display assigned user */}
         <p className="text-sm text-gray-700">
           Assigned to: <span className="">{task.assignedUser}</span>
         </p>
@@ -64,7 +59,6 @@ const AssignTaskProgress: React.FC<AssignTaskProgressProps> = ({
     );
   };
 
-  // Column component with drop functionality and background color
   const TaskColumn: React.FC<{ status: string; children: React.ReactNode }> = ({
     status,
     children,
@@ -75,7 +69,6 @@ const AssignTaskProgress: React.FC<AssignTaskProgressProps> = ({
         onUpdateTaskStatus({ ...draggedTask, status }),
     });
 
-    // Set background color based on column status
     const columnColor =
       status === 'not-started'
         ? 'bg-red-200'

@@ -29,7 +29,7 @@ export const projects: Project[] = [
         assignedUser: 'Bob',
       },
       {
-        id: '3', // Changed id to 3 for uniqueness
+        id: '3',
         name: 'Setup API Integration',
         description: 'Integrate APIs for data fetching',
         status: 'not-started',

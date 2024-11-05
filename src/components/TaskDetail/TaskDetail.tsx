@@ -1,4 +1,3 @@
-// src/components/TaskDetail.tsx
 import React, { useState } from 'react';
 import { Task } from '../../types/index';
 

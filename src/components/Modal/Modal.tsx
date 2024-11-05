@@ -1,4 +1,3 @@
-// src/components/Modal.tsx
 import React, { ReactNode } from 'react';
 
 interface ModalProps {
@@ -23,11 +22,11 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <div
       className="py-10 fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75"
-      onClick={onClose} // Closes modal when clicking outside content
+      onClick={onClose}
     >
       <div
         className={`bg-white p-6 rounded shadow-lg w-full ${customClass} relative h-full overflow-hidden`}
-        onClick={handleContentClick} // Prevents modal from closing when clicking inside
+        onClick={handleContentClick}
       >
         <button
           onClick={onClose}

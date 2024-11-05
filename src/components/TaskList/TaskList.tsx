@@ -16,13 +16,11 @@ const TaskList: React.FC<TaskListProps> = ({
   onDeleteTask,
 }) => {
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
-  const [errors, setErrors] = useState<string[]>([]); // State for validation errors
+  const [errors, setErrors] = useState<string[]>([]);
 
-  // Function to generate a random ID
   const generateRandomId = () =>
     Date.now().toString() + Math.floor(Math.random() * 1000);
 
-  // Initial newTask state with a random id
   const [newTask, setNewTask] = useState({
     id: generateRandomId(),
     name: '',
@@ -47,17 +45,17 @@ const TaskList: React.FC<TaskListProps> = ({
       validationErrors.push('Assigned user is required.');
 
     setErrors(validationErrors);
-    return validationErrors.length === 0; // Return true if no errors
+    return validationErrors.length === 0;
   };
 
   const handleAddTask = () => {
-    if (!validateForm()) return; // Validate form before proceeding
+    if (!validateForm()) return;
 
     const task: Task = { ...newTask };
 
     onAddTask(task);
     setNewTask({
-      id: generateRandomId(), // Generate a new random id for the next task
+      id: generateRandomId(),
       name: '',
       description: '',
       status: 'in-progress',
@@ -65,7 +63,7 @@ const TaskList: React.FC<TaskListProps> = ({
       dueDate: '',
       assignedUser: '',
     });
-    setErrors([]); // Clear errors after adding task
+    setErrors([]);
   };
 
   const handleDeleteTask = (taskId: string) => {
@@ -79,7 +77,6 @@ const TaskList: React.FC<TaskListProps> = ({
     <div className="pb-44 pe-4 bg-white rounded-lg shadow-lg max-w-2xl mx-auto">
       <h2 className="text-2xl font-semibold text-gray-700 mb-4">Tasks</h2>
 
-      {/* Task Addition */}
       <div className="mb-4">
         <input
           type="text"
@@ -146,7 +143,6 @@ const TaskList: React.FC<TaskListProps> = ({
         </button>
       </div>
 
-      {/* Display validation errors */}
       {errors.length > 0 && (
         <div className="mb-4">
           {errors.map((error, index) => (
@@ -157,7 +153,6 @@ const TaskList: React.FC<TaskListProps> = ({
         </div>
       )}
 
-      {/* Task List */}
       <div className="space-y-4 ">
         {tasks.map((task) => (
           <div
@@ -181,7 +176,6 @@ const TaskList: React.FC<TaskListProps> = ({
         ))}
       </div>
 
-      {/* Task Details for Editing */}
       {selectedTask && (
         <TaskDetail
           task={selectedTask}
