@@ -62,7 +62,7 @@ const AssignTaskProgress: React.FC<AssignTaskProgressProps> = ({
     return (
       <div
         ref={drop}
-        className="flex-1 p-4 bg-gray-100 rounded-lg shadow-lg overflow-y-auto"
+        className="flex-1 p-4 bg-gray-100 rounded-lg shadow-lg overflow-y-auto w-full md:w-1/3 lg:w-48"
       >
         <h3 className="font-bold text-lg text-gray-700 capitalize mb-4">
           {status.replace('-', ' ')}
@@ -74,7 +74,7 @@ const AssignTaskProgress: React.FC<AssignTaskProgressProps> = ({
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="flex gap-4">
+      <div className="flex flex-col md:flex-row gap-4 w-full">
         {Object.entries(taskColumns).map(([status, tasks]) => (
           <TaskColumn key={status} status={status}>
             {tasks.map((task) => (

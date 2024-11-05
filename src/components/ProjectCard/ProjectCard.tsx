@@ -84,10 +84,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         customClass="h-full mx-10"
       >
         <h2 className="text-xl font-bold mb-4">Assigned Tasks</h2>
-        <AssignTaskProgress
-          tasks={tasks}
-          onUpdateTaskStatus={handleUpdateTask}
-        />
+        <div className="overflow-auto">
+          <AssignTaskProgress
+            tasks={tasks}
+            onUpdateTaskStatus={handleUpdateTask}
+          />
+        </div>
       </Modal>
     </div>
   );
