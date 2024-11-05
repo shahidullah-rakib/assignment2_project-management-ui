@@ -19,7 +19,7 @@ const AssignTaskProgress: React.FC<AssignTaskProgressProps> = ({
     complete: tasks.filter((task) => task.status === 'complete'),
   };
 
-  // Task Card component with drag functionality
+  // Task Card component with drag functionality and color
   const TaskCard: React.FC<{ task: Task }> = ({ task }) => {
     const [{ isDragging }, drag] = useDrag({
       type: 'TASK',
@@ -29,10 +29,18 @@ const AssignTaskProgress: React.FC<AssignTaskProgressProps> = ({
       }),
     });
 
+    // Set color based on task status
+    const cardColor =
+      task.status === 'not-started'
+        ? 'bg-red-100'
+        : task.status === 'in-progress'
+        ? 'bg-yellow-100'
+        : 'bg-green-100';
+
     return (
       <div
         ref={drag}
-        className={`p-3 mb-2 bg-white rounded-lg shadow-md ${
+        className={`p-3 mb-2 rounded-lg shadow-md ${cardColor} ${
           isDragging ? 'opacity-50' : 'opacity-100'
         }`}
       >
@@ -44,11 +52,19 @@ const AssignTaskProgress: React.FC<AssignTaskProgressProps> = ({
             ? task.dueDate.toLocaleDateString()
             : task.dueDate}
         </p>
+        {/* Display priority */}
+        <p className="text-sm text-gray-700">
+          Priority: <span className="font-bold">{task.priority}</span>
+        </p>
+        {/* Display assigned user */}
+        <p className="text-sm text-gray-700">
+          Assigned to: <span className="font-bold">{task.assignedUser}</span>
+        </p>
       </div>
     );
   };
 
-  // Column component with drop functionality
+  // Column component with drop functionality and background color
   const TaskColumn: React.FC<{ status: string; children: React.ReactNode }> = ({
     status,
     children,
@@ -59,10 +75,18 @@ const AssignTaskProgress: React.FC<AssignTaskProgressProps> = ({
         onUpdateTaskStatus({ ...draggedTask, status }),
     });
 
+    // Set background color based on column status
+    const columnColor =
+      status === 'not-started'
+        ? 'bg-red-200'
+        : status === 'in-progress'
+        ? 'bg-yellow-200'
+        : 'bg-green-200';
+
     return (
       <div
         ref={drop}
-        className="flex-1 p-4 bg-gray-100 rounded-lg shadow-lg overflow-y-auto w-full md:w-1/3 lg:w-48"
+        className={`flex-1 p-4 ${columnColor} rounded-lg shadow-lg overflow-y-auto w-full md:w-1/3 lg:w-48`}
       >
         <h3 className="font-bold text-lg text-gray-700 capitalize mb-4">
           {status.replace('-', ' ')}

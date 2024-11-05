@@ -3,7 +3,7 @@ import { Project } from '../../types/index';
 import Modal from '../Modal/Modal';
 import TaskList from '../TaskList/TaskList';
 import { Task } from '../../types/index';
-import TaskViewModal from '../TaskViewModal/TaskViewModal';
+// import TaskViewModal from '../TaskViewModal/TaskViewModal';
 import AssignTaskProgress from '../AssignTaskProgress/AssignTaskProgress';
 
 interface ProjectCardProps {
