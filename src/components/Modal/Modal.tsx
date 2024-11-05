@@ -30,9 +30,9 @@ const Modal: React.FC<ModalProps> = ({
       >
         <button
           onClick={onClose}
-          className="text-gray-500 absolute top-2 right-4"
+          className="text-gray-500 absolute top-4 right-4 font-bold"
         >
-          &times;
+          {/* &times; */}X
         </button>
         <div className="h-full overflow-hidden">{children}</div>
       </div>

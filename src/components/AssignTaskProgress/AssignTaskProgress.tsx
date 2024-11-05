@@ -50,10 +50,10 @@ const AssignTaskProgress: React.FC<AssignTaskProgressProps> = ({
             : task.dueDate}
         </p>
         <p className="text-sm text-gray-700">
-          Priority: <span className="">{task.priority}</span>
+          Priority: <span>{task.priority}</span>
         </p>
         <p className="text-sm text-gray-700">
-          Assigned to: <span className="">{task.assignedUser}</span>
+          Assigned to: <span>{task.assignedUser}</span>
         </p>
       </div>
     );
@@ -91,14 +91,17 @@ const AssignTaskProgress: React.FC<AssignTaskProgressProps> = ({
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="flex flex-col md:flex-row gap-4 w-full">
-        {Object.entries(taskColumns).map(([status, tasks]) => (
-          <TaskColumn key={status} status={status}>
-            {tasks.map((task) => (
-              <TaskCard key={task.id} task={task} />
-            ))}
-          </TaskColumn>
-        ))}
+      {/* Wrapper div with a fixed height and scroll on smaller screens */}
+      <div className="h-screen md:h-auto overflow-y-auto p-4">
+        <div className="flex flex-col md:flex-row gap-4 w-full pb-48">
+          {Object.entries(taskColumns).map(([status, tasks]) => (
+            <TaskColumn key={status} status={status}>
+              {tasks.map((task) => (
+                <TaskCard key={task.id} task={task} />
+              ))}
+            </TaskColumn>
+          ))}
+        </div>
       </div>
     </DndProvider>
   );
