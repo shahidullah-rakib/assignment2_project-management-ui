@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {
-  DragDropContext,
-  Droppable,
-  Draggable,
-  DropResult,
-} from 'react-beautiful-dnd';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import Modal from '../Modal/Modal';
+import DroppableColumn from '../DroppableColumn/DroppableColumn';
 import { Task } from '../../types/index';
 
 interface TaskColumns {
@@ -27,7 +23,6 @@ const TaskViewModal: React.FC<TaskViewModalProps> = ({
 }) => {
   const [taskColumns, setTaskColumns] = useState<TaskColumns | null>(null);
 
-  // Initialize columns based on task status
   useEffect(() => {
     if (tasks.length > 0) {
       const columns: TaskColumns = {
@@ -39,13 +34,11 @@ const TaskViewModal: React.FC<TaskViewModalProps> = ({
     }
   }, [tasks]);
 
-  // Handle drag end event
   const onDragEnd = (result: DropResult) => {
     if (!taskColumns) return;
     const { source, destination } = result;
-    if (!destination) return; // If dropped outside any droppable
+    if (!destination) return;
 
-    // Skip if the item is dropped in the same position
     if (
       source.droppableId === destination.droppableId &&
       source.index === destination.index
@@ -56,11 +49,9 @@ const TaskViewModal: React.FC<TaskViewModalProps> = ({
     const destColumn = [...taskColumns[destination.droppableId]];
     const [movedTask] = sourceColumn.splice(source.index, 1);
 
-    // Update the status of the task based on the destination column
     movedTask.status = destination.droppableId as Task['status'];
     destColumn.splice(destination.index, 0, movedTask);
 
-    // Update state and call the parent callback to update the task status
     setTaskColumns((prev) => ({
       ...prev,
       [source.droppableId]: sourceColumn,
@@ -70,7 +61,7 @@ const TaskViewModal: React.FC<TaskViewModalProps> = ({
     onUpdateTaskStatus(movedTask.id, movedTask.status);
   };
 
-  if (!isOpen || !taskColumns) return null; // Avoid rendering if modal is closed or taskColumns is null
+  if (!isOpen || !taskColumns) return null;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -78,39 +69,12 @@ const TaskViewModal: React.FC<TaskViewModalProps> = ({
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="flex space-x-4">
           {['not-started', 'in-progress', 'complete'].map((status) => (
-            <Droppable key={status} droppableId={status}>
-              {(provided) => (
-                <div
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                  className="flex-1 p-4 bg-gray-100 rounded-lg shadow-md"
-                >
-                  <h3 className="text-lg font-semibold capitalize mb-2">
-                    {status.replace('-', ' ')}
-                  </h3>
-                  {taskColumns[status].map((task, index) => (
-                    <Draggable
-                      key={task.id}
-                      draggableId={task.id}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          className="border p-3 mb-2 bg-white rounded shadow cursor-pointer"
-                        >
-                          <h4 className="font-semibold">{task.name}</h4>
-                          <p className="text-gray-500">Status: {task.status}</p>
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
+            <DroppableColumn
+              key={status}
+              droppableId={status}
+              tasks={taskColumns[status]}
+              title={status.replace('-', ' ')}
+            />
           ))}
         </div>
       </DragDropContext>

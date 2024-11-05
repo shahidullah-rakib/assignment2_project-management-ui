@@ -4,6 +4,7 @@ import Modal from '../Modal/Modal';
 import TaskList from '../TaskList/TaskList';
 import { Task } from '../../types/index';
 import TaskViewModal from '../TaskViewModal/TaskViewModal';
+import AssignTaskProgress from '../AssignTaskProgress/AssignTaskProgress';
 
 interface ProjectCardProps {
   project: Project;
@@ -43,14 +44,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
   };
 
-  const handleUpdateTaskStatus = (taskId: string, newStatus: string) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === taskId ? { ...task, status: newStatus } : task
-      )
-    );
-  };
-
   return (
     <div className="border rounded-lg p-4 shadow hover:bg-gray-100">
       <h3 className="text-lg font-semibold">{project.name}</h3>
@@ -83,12 +76,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         />
       </Modal>
 
-      <Modal isOpen={isViewTaskOpen} onClose={handleViewTaskClose}>
-        <TaskViewModal
+      <Modal
+        isOpen={isViewTaskOpen}
+        onClose={handleViewTaskClose}
+        customClass="h-full my-20 m-10"
+      >
+        <h2 className="text-xl font-bold mb-4">Assigned Tasks</h2>
+        <AssignTaskProgress
           tasks={tasks}
-          isOpen={isViewTaskOpen}
-          onClose={handleViewTaskClose}
-          onUpdateTaskStatus={handleUpdateTaskStatus}
+          onUpdateTaskStatus={handleUpdateTask}
         />
       </Modal>
     </div>

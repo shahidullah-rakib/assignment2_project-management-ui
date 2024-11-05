@@ -5,9 +5,15 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: ReactNode;
+  customClass?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  children,
+  customClass = 'max-w-md',
+}) => {
   if (!isOpen) return null;
 
   // Stop propagation to prevent the modal from closing when clicking inside the modal content
@@ -21,7 +27,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
       onClick={onClose} // Closes modal when clicking outside content
     >
       <div
-        className="bg-white p-6 rounded shadow-lg w-full max-w-md relative"
+        className={`bg-white p-6 rounded shadow-lg w-full ${customClass} relative`}
         onClick={handleContentClick} // Prevents modal from closing when clicking inside
       >
         <button
