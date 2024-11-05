@@ -7,9 +7,9 @@ import AddProject from './components/AddProject/AddProject';
 import SearchAndFilter from './components/SearchAndFilter/SearchAndFilter';
 
 const App: React.FC = () => {
-  const [projects, setProjects] = useState<Project[]>(initialProjects); // Initialize state with initialProjects
+  const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [filteredProjects, setFilteredProjects] =
-    useState<Project[]>(initialProjects); // State for filtered projects
+    useState<Project[]>(initialProjects);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const handleSelectProject = (project: Project) => {
@@ -19,9 +19,9 @@ const App: React.FC = () => {
   const handleAddProject = (newProject: Project) => {
     setProjects((prevProjects) => {
       const updatedProjects = [...prevProjects, newProject];
-      setFilteredProjects(updatedProjects); // Update filtered projects when adding new project
+      setFilteredProjects(updatedProjects);
       return updatedProjects;
-    }); // Add new project to projects array
+    });
   };
 
   const handleSearch = (searchText: string) => {
@@ -48,16 +48,16 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen p-8 bg-gray-100">
-      <h1 className="text-3xl font-bold text-center mb-8">
+    <div className="min-h-screen p-4 sm:p-8 bg-gradient-to-r from-gray-50 to-gray-100">
+      <h1 className="text-2xl sm:text-3xl font-extrabold text-center mb-6 sm:mb-8 text-gray-700">
         Project Management
       </h1>
-      <div className="flex justify-between mb-4">
+      <div className="flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-8 gap-4">
         <AddProject onAddProject={handleAddProject} />
         <SearchAndFilter onSearch={handleSearch} onFilter={handleFilter} />
       </div>
       <Dashboard
-        projects={filteredProjects} // Use filtered projects
+        projects={filteredProjects}
         onSelectProject={handleSelectProject}
       />
     </div>

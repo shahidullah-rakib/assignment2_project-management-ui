@@ -76,7 +76,7 @@ const TaskList: React.FC<TaskListProps> = ({
   };
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-lg max-w-2xl mx-auto">
+    <div className="pb-44 pe-4 bg-white rounded-lg shadow-lg max-w-2xl mx-auto">
       <h2 className="text-2xl font-semibold text-gray-700 mb-4">Tasks</h2>
 
       {/* Task Addition */}
@@ -85,7 +85,7 @@ const TaskList: React.FC<TaskListProps> = ({
           type="text"
           value={newTask.id}
           readOnly
-          className="p-2 border rounded w-full mb-2"
+          className="p-2 border rounded w-full mb-2 hidden"
         />
         <input
           type="text"
@@ -158,7 +158,7 @@ const TaskList: React.FC<TaskListProps> = ({
       )}
 
       {/* Task List */}
-      <div className="space-y-4">
+      <div className="space-y-4 ">
         {tasks.map((task) => (
           <div
             key={task.id}

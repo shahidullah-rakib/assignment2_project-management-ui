@@ -30,18 +30,18 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
   };
 
   return (
-    <div className="flex space-x-4">
+    <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
       <input
         type="text"
         placeholder="Search by name"
         value={searchText}
         onChange={handleSearchChange}
-        className="border p-2 rounded"
+        className="border p-3 rounded-lg w-full md:w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       <select
         value={progress}
         onChange={handleProgressChange}
-        className="border p-2 rounded"
+        className="border p-3 rounded-lg w-full md:w-48 focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         <option value="">Filter by progress</option>
         <option value="0">0%</option>
@@ -52,7 +52,7 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
         type="date"
         value={dueDate}
         onChange={handleDateChange}
-        className="border p-2 rounded"
+        className="border p-3 rounded-lg w-full md:w-48 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
     </div>
   );

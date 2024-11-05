@@ -62,9 +62,9 @@ const AssignTaskProgress: React.FC<AssignTaskProgressProps> = ({
     return (
       <div
         ref={drop}
-        className="flex-1 p-4 bg-gray-100 rounded-lg shadow-lg h-screen"
+        className="flex-1 p-4 bg-gray-100 rounded-lg shadow-lg overflow-y-auto"
       >
-        <h3 className="font-bold text-lg text-gray-700 capitalize mb-4 overflow-y-auto">
+        <h3 className="font-bold text-lg text-gray-700 capitalize mb-4">
           {status.replace('-', ' ')}
         </h3>
         {children}

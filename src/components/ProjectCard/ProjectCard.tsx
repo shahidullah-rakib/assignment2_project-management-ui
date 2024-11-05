@@ -68,18 +68,20 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       {/* Assign New Task Modal */}
       <Modal isOpen={isAssignTaskOpen} onClose={handleAssignTaskClose}>
         <h2 className="text-xl font-bold mb-4">Assign New Task</h2>
-        <TaskList
-          tasks={tasks}
-          onAddTask={handleAddTask}
-          onUpdateTask={handleUpdateTask}
-          onDeleteTask={handleDeleteTask}
-        />
+        <div className="h-full overflow-y-auto">
+          <TaskList
+            tasks={tasks}
+            onAddTask={handleAddTask}
+            onUpdateTask={handleUpdateTask}
+            onDeleteTask={handleDeleteTask}
+          />
+        </div>
       </Modal>
 
       <Modal
         isOpen={isViewTaskOpen}
         onClose={handleViewTaskClose}
-        customClass="h-full my-20 m-10"
+        customClass="h-full mx-10"
       >
         <h2 className="text-xl font-bold mb-4">Assigned Tasks</h2>
         <AssignTaskProgress
